@@ -1,16 +1,13 @@
 <template>
   <div>
-    <h2>题目描述</h2>
-    <el-radio v-model="radio" label="1">题目选项1</el-radio><br />
-    <el-radio v-model="radio" label="2">题目选项2</el-radio><br />
-    <el-radio v-model="radio" label="3">题目选项3</el-radio><br />
-    <el-radio v-model="radio" label="4">题目选项4</el-radio><br />
-    <el-button type="primary" v-on:click="test">提交</el-button>
+    <TestItem name="HHHHH"></TestItem>
   </div>
 </template>
 
 <script>
+import TestItem from "@/components/TestItem.vue";
 export default {
+  components: { TestItem },
   data() {
     return {
       radio: "1",
