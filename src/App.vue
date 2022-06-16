@@ -3,9 +3,10 @@
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="/test">Test</router-link>
+      <router-link to="/test">Test</router-link> |
+      <router-link to="/kps" param>知识点</router-link>
     </nav>
-    <router-view />
+    <router-view></router-view>
   </div>
 </template>
 
