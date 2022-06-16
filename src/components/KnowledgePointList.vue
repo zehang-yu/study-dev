@@ -51,6 +51,7 @@
 }
 
 .kp-box {
+  margin: 0 auto;
   width: 700px;
 }
 
@@ -68,6 +69,7 @@ h4 {
 }
 
 .kp-list-body {
+  text-align: left;
   padding: 0 20px;
 }
 

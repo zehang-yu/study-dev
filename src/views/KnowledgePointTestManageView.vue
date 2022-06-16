@@ -27,6 +27,5 @@ h2 {
 }
 
 .manage-test-kp-view {
-  text-align: left;
 }
 </style>
