@@ -29,6 +29,11 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/TestView.vue"),
   },
   {
+    path: "/kps/:chapter",
+    name: "KnowledgePoint",
+    component: () => import("../views/KnowledgePoint.vue")
+  },
+  {
     path: "/mamagekptest", //kp: knowledge-point
     name: "mamagekptest",
     // route level code-splitting
@@ -38,7 +43,7 @@ const routes = [
       import(
         /* webpackChunkName: "about" */ "../views/KnowledgePointTestManageView.vue"
       ),
-  },
+  }
 ];
 
 const router = new VueRouter({
