@@ -31,7 +31,7 @@ const routes = [
   {
     path: "/kps/:chapter",
     name: "KnowledgePoint",
-    component: () => import("../views/KnowledgePoint.vue")
+    component: () => import("../views/KnowledgePoint.vue"),
   },
   {
     path: "/mamagekptest", //kp: knowledge-point
@@ -43,7 +43,16 @@ const routes = [
       import(
         /* webpackChunkName: "about" */ "../views/KnowledgePointTestManageView.vue"
       ),
-  }
+  },
+  {
+    path: "/award", //kp: knowledge-point
+    name: "award",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/PointawardView.vue"),
+  },
 ];
 
 const router = new VueRouter({
