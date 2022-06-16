@@ -10,6 +10,7 @@
 </template>
 
 <script>
+//import api from "@/request/network";
 export default {
   data() {
     return {
@@ -21,7 +22,12 @@ export default {
     };
   },
   methods: {
-    test: function () {},
+    // test: function () {
+    //   api
+    //     .get("test/getQuestion")
+    //     .then((data) => {})
+    //     .catch((err) => {});
+    // },
     getTheOption: function () {},
     getTheQuestion: function () {},
   },

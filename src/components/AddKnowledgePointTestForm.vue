@@ -40,6 +40,8 @@
 </template>
 
 <script>
+//把api里面的对象引进来
+import { insertChoiceQuestion } from "@/request/api";
 export default {
   data() {
     return {
@@ -50,17 +52,26 @@ export default {
         optionB: "",
         optionC: "",
         optionD: "",
-        deliveryA: false,
-        deliveryB: false,
-        deliveryC: false,
-        deliveryD: false,
+        answer: "A",
         type: [],
         resource: "",
       },
     };
   },
+
+  /*
+  test: function () {
+    api.get("test/getQuestion").then(data => {
+
+    })
+      .catch(err => {
+        
+      })
+    },
+  */
   methods: {
     onSubmit() {
+      insertChoiceQuestion({});
       console.log("submit!");
     },
   },
