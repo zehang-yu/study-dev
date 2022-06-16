@@ -28,6 +28,11 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/TestView.vue"),
   },
+  {
+    path: "/kps/:chapter",
+    name: "KnowledgePoint",
+    component: () => import("../views/KnowledgePoint.vue")
+  }
 ];
 
 const router = new VueRouter({
