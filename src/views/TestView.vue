@@ -21,6 +21,7 @@ export default {
     };
   },
   methods: {
+    init: function () {},
     test: function () {},
     getTheOption: function () {},
     getTheQuestion: function () {},
