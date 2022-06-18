@@ -8,9 +8,7 @@
           :key="index"
           v-for="(item, index) in contentsInOnePage"
         >
-          <input type="checkbox" name="choosed" value="item1" />{{
-            item.content
-          }}
+          <input type="checkbox" name="choosed" value="item1" />{{ item.title }}
           <div class="button">修改</div>
           <div class="button">删除</div>
         </li>
