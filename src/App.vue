@@ -7,7 +7,8 @@
       <router-link to="/kps" param>知识点</router-link>
       <router-link to="/test">Test</router-link>
       <br />
-      <router-link to="/mamagekptest">KnowledgePointTestManage</router-link>
+      <router-link to="/mamagekptest">KnowledgePointTestManage</router-link>|
+      <router-link to="/award">Pointaward</router-link>|
     </nav>
     <router-view></router-view>
   </div>
