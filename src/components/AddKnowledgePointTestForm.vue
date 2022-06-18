@@ -8,24 +8,35 @@
         </el-form-item>
         <el-form-item label="题目类型">
           <el-select v-model="form.questionType" placeholder="请选择题目类型">
-            <el-option label="判断题" value="judge"></el-option>
             <el-option label="选择题" value="choice"></el-option>
+            <el-option label="判断题" value="judge"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item
-          :label="`选项${index + 1}`"
-          :key="index"
-          v-for="(item, index) in form.options"
-        >
-          <el-input type="textarea" v-model="item.optionName"></el-input>
-          <el-switch v-model="item.delivery"></el-switch>
-        </el-form-item>
+        <template v-if="form.questionType === 'choice'">
+          <el-form-item
+            :label="`选项${index + 1}`"
+            :key="index"
+            v-for="(item, index) in form.options"
+          >
+            <div class="testarea-holder">
+              <el-input type="textarea" v-model="item.optionName"></el-input>
+            </div>
+            <el-switch v-model="item.delivery"></el-switch>
+          </el-form-item>
+        </template>
 
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">添加</el-button>
-          <el-button>取消</el-button>
-        </el-form-item>
+        <div class="judge-ans-holder" v-else>
+          <el-switch v-model="form.corrent"></el-switch>正确
+          <el-switch v-model="form.wrong"></el-switch> 错误
+        </div>
+
+        <div class="buttom-holder">
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">添加</el-button>
+            <el-button>取消</el-button>
+          </el-form-item>
+        </div>
       </el-form>
     </div>
   </div>
@@ -39,13 +50,15 @@ export default {
     return {
       form: {
         content: "",
-        questionType: "",
+        questionType: "choice",
         options: [
           { optionName: "", delivery: false },
           { optionName: "", delivery: false },
           { optionName: "", delivery: false },
           { optionName: "", delivery: false },
         ],
+        correct: false,
+        wrong: false,
       },
     };
   },
@@ -88,5 +101,20 @@ h4 {
   margin: 0 auto;
   text-align: left;
   width: 500px;
+}
+
+.testarea-holder {
+  display: inline-block;
+  padding-right: 15px;
+  width: 365px;
+}
+
+.buttom-holder {
+  text-align: center;
+}
+
+.judge-ans-holder {
+  margin-bottom: 15px;
+  text-align: center;
 }
 </style>
