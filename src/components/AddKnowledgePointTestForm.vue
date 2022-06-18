@@ -13,21 +13,13 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="选项1">
-          <el-input type="textarea" v-model="form.optionA"></el-input>
-          <el-switch v-model="form.deliveryA"></el-switch>
-        </el-form-item>
-        <el-form-item label="选项2">
-          <el-input type="textarea" v-model="form.optionB"></el-input>
-          <el-switch v-model="form.deliveryB"></el-switch>
-        </el-form-item>
-        <el-form-item label="选项3">
-          <el-input type="textarea" v-model="form.optionC"></el-input>
-          <el-switch v-model="form.deliveryC"></el-switch>
-        </el-form-item>
-        <el-form-item label="选项4">
-          <el-input type="textarea" v-model="form.optionD"></el-input>
-          <el-switch v-model="form.deliveryD"></el-switch>
+        <el-form-item
+          :label="`选项${index + 1}`"
+          :key="index"
+          v-for="(item, index) in form.options"
+        >
+          <el-input type="textarea" v-model="item.optionName"></el-input>
+          <el-switch v-model="item.delivery"></el-switch>
         </el-form-item>
 
         <el-form-item>
@@ -48,31 +40,40 @@ export default {
       form: {
         content: "",
         questionType: "",
-        optionA: "",
-        optionB: "",
-        optionC: "",
-        optionD: "",
-        answer: "A",
-        type: [],
-        resource: "",
+        options: [
+          { optionName: "", delivery: false },
+          { optionName: "", delivery: false },
+          { optionName: "", delivery: false },
+          { optionName: "", delivery: false },
+        ],
       },
     };
   },
 
-  /*
-  test: function () {
-    api.get("test/getQuestion").then(data => {
-
-    })
-      .catch(err => {
-        
-      })
-    },
-  */
   methods: {
     onSubmit() {
-      insertChoiceQuestion({});
-      console.log("submit!");
+      let _ans = "";
+      for (let i = 0; i < this.form.options.length; ++i) {
+        if (this.form.options[i].delivery == true) {
+          _ans = String.fromCharCode("A".charCodeAt(0) + i);
+          break;
+        }
+      }
+
+      insertChoiceQuestion({
+        title: this.form.content,
+        opA: this.form.options[0].optionName,
+        opB: this.form.options[1].optionName,
+        opC: this.form.options[2].optionName,
+        opD: this.form.options[3].optionName,
+        ans: _ans,
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
