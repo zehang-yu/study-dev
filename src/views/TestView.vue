@@ -6,6 +6,7 @@
 
 <script>
 import TestItem from "@/components/TestItem.vue";
+//import api from "@/request/network";
 export default {
   components: { TestItem },
   data() {
@@ -20,6 +21,12 @@ export default {
   methods: {
     init: function () {},
     test: function () {},
+    // test: function () {
+    //   api
+    //     .get("test/getQuestion")
+    //     .then((data) => {})
+    //     .catch((err) => {});
+    // },
     getTheOption: function () {},
     getTheQuestion: function () {},
   },
