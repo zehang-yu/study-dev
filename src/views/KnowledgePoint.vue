@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Tree :data="kps"></Tree>
+    <Tree :data="kps" @on-node-click="clickTreeNode"></Tree>
   </div>
 </template>
 
@@ -19,10 +19,20 @@ export default {
   created() {
     const chapter = this.$route.params["chapter"];
     api.get(`kp/get/${chapter}`).then(data => {
-      console.log(data.data.kps);
       this.kps = data.data.kps;
     })
     .catch(err => console.log(err));
+  },
+  methods: {
+    clickTreeNode(e, data) {
+      console.log(data);
+      if (data.children) {
+        // 点击有儿子的节点没反应
+        return;
+      }
+      // 点击知识点
+      this.$router.push(`/kp/${data.kpId}`)
+    }
   }
 }
 </script>
