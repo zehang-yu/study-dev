@@ -1,6 +1,6 @@
 <template>
   <div class="kp-box">
-    <h4>知识点测验列表</h4>
+    <h4>测验列表</h4>
     <div class="kp-list-body">
       <ul class="kp-list">
         <li
@@ -9,8 +9,7 @@
           v-for="(item, index) in contentsInOnePage"
         >
           <input type="checkbox" name="choosed" value="item1" />{{ item.title }}
-          <div class="button">修改</div>
-          <div class="button">删除</div>
+          <div class="button" @click="onDelete(item.queid)">删除</div>
         </li>
       </ul>
     </div>
@@ -32,6 +31,7 @@
 
 <script>
 import { getAllTest } from "@/request/api";
+import { deleteQuestion } from "@/request/api";
 
 export default {
   created() {
@@ -73,7 +73,12 @@ export default {
         this.contentsInOnePage.push(this.allContents[i]);
       }
     },
-    //getAllTest() {},
+    onDelete(queid) {
+      deleteQuestion(queid).then((json) => {
+        console.log(json);
+        alert("删除成功");
+      });
+    },
   },
 };
 </script>
