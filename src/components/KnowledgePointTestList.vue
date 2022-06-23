@@ -8,8 +8,8 @@
           :key="index"
           v-for="(item, index) in contentsInOnePage"
         >
-          <input type="checkbox" name="choosed" value="item1" />{{ item.title }}
-          <div class="button" @click="onDelete(item.queid)">删除</div>
+          {{ item.title }}
+          <div class="button" @click="onDelete(item.queid, index)">删除</div>
         </li>
       </ul>
     </div>
@@ -35,17 +35,7 @@ import { deleteQuestion } from "@/request/api";
 
 export default {
   created() {
-    getAllTest().then((json) => {
-      console.log(json);
-      this.allContents = json.data.question;
-      let end_index = //要显示的问题的末尾下标
-        this.pageSize - 1 < this.allContents.length - 1
-          ? this.pageSize - 1
-          : this.allContents.length - 1;
-      for (let i = 0; i <= end_index; ++i) {
-        this.contentsInOnePage.push(this.allContents[i]);
-      }
-    });
+    this.flushData();
   },
 
   data() {
@@ -58,6 +48,21 @@ export default {
   },
 
   methods: {
+    flushData() {
+      getAllTest().then((json) => {
+        console.log(json);
+        this.allContents = json.data.question;
+        let end_index = //要显示的问题的末尾下标
+          this.pageSize - 1 < this.allContents.length - 1
+            ? this.pageSize - 1
+            : this.allContents.length - 1;
+
+        this.contentsInOnePage = [];
+        for (let i = 0; i <= end_index; ++i) {
+          this.contentsInOnePage.push(this.allContents[i]);
+        }
+      });
+    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },
@@ -73,7 +78,37 @@ export default {
         this.contentsInOnePage.push(this.allContents[i]);
       }
     },
-    onDelete(queid) {
+    onDelete(queid, index) {
+      let tempOnePageArr = this.contentsInOnePage;
+      let tempAllPageArr = this.allContents;
+      this.contentsInOnePage = []; //清空表格
+      this.allContents = [];
+      if (tempOnePageArr.length == 1) {
+        //那一页只有一个数据
+        this.currentPage -= 1;
+        for (
+          let i = tempAllPageArr.length - 1 - this.pageSize;
+          i < tempAllPageArr.length - 1;
+          ++i
+        ) {
+          console.log(tempAllPageArr[i].title);
+          this.contentsInOnePage.push(tempAllPageArr[i]);
+        }
+      } else {
+        for (let i = 0; i < tempOnePageArr.length; ++i) {
+          if (i != index) {
+            this.contentsInOnePage.push(tempOnePageArr[i]);
+          }
+        }
+      }
+
+      for (let i = 0; i < tempAllPageArr.length; ++i) {
+        if (tempAllPageArr[i].queid != queid) {
+          this.allContents.push(tempAllPageArr[i]);
+        }
+      }
+
+      console.log(queid + " " + index);
       deleteQuestion(queid).then((json) => {
         console.log(json);
         alert("删除成功");
