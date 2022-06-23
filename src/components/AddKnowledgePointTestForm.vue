@@ -28,8 +28,10 @@
         </template>
 
         <div class="judge-ans-holder" v-else>
-          <el-switch v-model="form.corrent"></el-switch>正确
-          <el-switch v-model="form.wrong"></el-switch>错误
+          <el-radio-group v-model="form.radio">
+            <el-radio label="right">正确</el-radio>
+            <el-radio label="wrong">错误</el-radio>
+          </el-radio-group>
         </div>
 
         <div class="buttom-holder">
@@ -59,8 +61,7 @@ export default {
           { optionName: "", delivery: false },
           { optionName: "", delivery: false },
         ],
-        correct: false,
-        wrong: false,
+        radio: "",
       },
     };
   },
@@ -104,14 +105,11 @@ export default {
           });
       } else {
         //判断题
-        console.log(this.form.correct);
-        console.log(this.form.wrong);
 
         let judgeAns = "";
-        if (this.form.correct == false && this.form.wrong == false) {
+        if (this.form.radio == "") {
           alert("未选择正确答案");
-          return;
-        } else if (this.form.correct == true) {
+        } else if (this.form.radio == "right") {
           judgeAns = "对";
         } else {
           judgeAns = "错";
