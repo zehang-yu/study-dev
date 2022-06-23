@@ -23,10 +23,14 @@ export default {
     return {
       radio: "F",
       question: {},
+      questionNum: 10,
     };
   },
   created() {
-    console.log("hehe sb");
+    //console.log("hehe sb");
+    for (var i = 1; i <= this.question; i++) {
+      console.log(i);
+    }
     api
       .get("/test/getQuestion/1")
       .then((data) => {
@@ -38,6 +42,8 @@ export default {
       });
   },
   methods: {
+    //获取问题数量
+    getQuestionNum: function () {},
     //测试回答是否正确
     test: function () {
       if (this.radio == "F") {
@@ -47,10 +53,6 @@ export default {
         this.$message.success("答对啦");
       }
     },
-    //获得选项文本
-    getTheOption: function () {},
-    //获得题目
-    getTheQuestion: function () {},
   },
 };
 </script>

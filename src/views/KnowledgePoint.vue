@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Tree :data="kps"></Tree>
+    <Tree :data="kps" @on-node-click="clickTreeNode"></Tree>
   </div>
 </template>
 
@@ -26,8 +26,18 @@ export default {
       })
       .catch((err) => console.log(err));
   },
+  methods: {
+    clickTreeNode(e, data) {
+      console.log(data);
+      if (data.children) {
+        // 点击有儿子的节点没反应
+        return;
+      }
+      // 点击知识点
+      this.$router.push(`/kp/${data.kpId}`);
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
