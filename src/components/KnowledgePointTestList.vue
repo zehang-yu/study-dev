@@ -1,30 +1,15 @@
 <template>
   <div class="kp-box">
-    <h4>知识点测验列表</h4>
-    <select name="opration">
-      <option value="select-all" placeholder=" ">选项一</option>
-    </select>
+    <h4>测验列表</h4>
     <div class="kp-list-body">
       <ul class="kp-list">
-        <li class="kp-list-item">
-          <input type="checkbox" name="choosed" value="item1" />知识点内容1
-          <div class="button">修改</div>
-          <div class="button">删除</div>
-        </li>
-        <li class="kp-list-item">
-          <input type="checkbox" name="choosed" value="item1" />知识点内容2
-          <div class="button">修改</div>
-          <div class="button">删除</div>
-        </li>
-        <li class="kp-list-item">
-          <input type="checkbox" name="choosed" value="item1" />知识点内容3
-          <div class="button">修改</div>
-          <div class="button">删除</div>
-        </li>
-        <li class="kp-list-item">
-          <input type="checkbox" name="choosed" value="item1" />知识点内容4
-          <div class="button">修改</div>
-          <div class="button">删除</div>
+        <li
+          class="kp-list-item"
+          :key="index"
+          v-for="(item, index) in contentsInOnePage"
+        >
+          <input type="checkbox" name="choosed" value="item1" />{{ item.title }}
+          <div class="button" @click="onDelete(item.queid)">删除</div>
         </li>
       </ul>
     </div>
@@ -33,16 +18,70 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page.sync="currentPage1"
-          :page-size="100"
+          :current-page.sync="currentPage"
+          :page-size="pageSize"
           layout="prev, pager, next, jumper"
-          :total="1000"
+          :total="allContents.length"
         >
         </el-pagination>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import { getAllTest } from "@/request/api";
+import { deleteQuestion } from "@/request/api";
+
+export default {
+  created() {
+    getAllTest().then((json) => {
+      console.log(json);
+      this.allContents = json.data.question;
+      let end_index = //要显示的问题的末尾下标
+        this.pageSize - 1 < this.allContents.length - 1
+          ? this.pageSize - 1
+          : this.allContents.length - 1;
+      for (let i = 0; i <= end_index; ++i) {
+        this.contentsInOnePage.push(this.allContents[i]);
+      }
+    });
+  },
+
+  data() {
+    return {
+      currentPage: 1,
+      pageSize: 5,
+      contentsInOnePage: [], //每页要显示在页面的题目内容
+      allContents: [], //所有的题目内容
+    };
+  },
+
+  methods: {
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      this.contentsInOnePage = []; //清空表格
+      let begin_index = (val - 1) * this.pageSize; //要显示的问题的起始下标
+      let end_index = //要显示的问题的末尾下标
+        begin_index + this.pageSize - 1 < this.allContents.length - 1
+          ? begin_index + this.pageSize - 1
+          : this.allContents.length - 1;
+
+      for (let i = begin_index; i <= end_index; ++i) {
+        this.contentsInOnePage.push(this.allContents[i]);
+      }
+    },
+    onDelete(queid) {
+      deleteQuestion(queid).then((json) => {
+        console.log(json);
+        alert("删除成功");
+      });
+    },
+  },
+};
+</script>
 
 <style scoped>
 * {
@@ -69,6 +108,7 @@ h4 {
 }
 
 .kp-list-body {
+  height: 270px;
   text-align: left;
   padding: 0 20px;
 }
@@ -114,23 +154,3 @@ ul li .button:hover {
   padding-right: 35px;
 }
 </style>
-
-<script>
-export default {
-  data() {
-    return {
-      currentPage1: 3,
-      contents: [],
-    };
-  },
-
-  methods: {
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
-    },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
-    },
-  },
-};
-</script>
