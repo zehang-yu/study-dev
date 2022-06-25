@@ -1,11 +1,9 @@
 <template >
   <div>
-    <h2>{{ question.testName }}</h2>
+    <h2>{{ question.title }}</h2>
     <el-radio-group v-model="radio">
-      <el-radio label="A">{{ question.opA }}</el-radio>
-      <el-radio label="B">{{ question.opB }}</el-radio>
-      <el-radio label="C">{{ question.opC }}</el-radio>
-      <el-radio label="D">{{ question.opD }}</el-radio>
+      <el-radio label="1">是</el-radio>
+      <el-radio label="0">否</el-radio>
     </el-radio-group>
     <br />
     <br />
@@ -15,7 +13,7 @@
 
 <script>
 export default {
-  name: "TestItem",
+  name: "judgeItem",
   question: [],
   props: ["name", "question"],
   data() {
@@ -31,7 +29,7 @@ export default {
       if (this.radio == "F") {
         return;
       }
-      if (this.radio == this.question.correct) {
+      if (this.radio == this.question.ans) {
         this.$message.success("答对啦");
       }
     },
