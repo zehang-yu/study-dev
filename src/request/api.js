@@ -1,5 +1,5 @@
 import Network from "./network";
-export const register = (data) => Network.post("/user/register", data);
+export const login = (data) => Network.post("/student/login", data);
 //hhk: 发请求先写这里(写给自己看的......)
 export const insertChoiceQuestion = (data) =>
   Network.post("/test/insertChoiceQuestion", data);
