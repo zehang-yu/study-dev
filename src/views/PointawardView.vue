@@ -2,78 +2,147 @@
   <div class="block">
     <span class="demonstration">直接前往</span>
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="point" label="知识点" width="180" align="center">
-      </el-table-column>
-      <el-table-column prop="type" label="分类" width="180" align="center">
+      <el-table-column prop="name" label="知识点" width="180" align="center">
       </el-table-column>
       <el-table-column
-        prop="success"
+        prop="point_type"
+        label="分类"
+        width="180"
+        align="center"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="success_num"
         label="助教成功统计"
         width="180"
         align="center"
       >
       </el-table-column>
       <el-table-column
-        prop="defeat"
+        prop="defeat_num"
         label="助教失败统计"
         width="180"
         align="center"
       >
       </el-table-column>
       <el-table-column label="操作" width="120">
-        <template>
-          <el-popconfirm title="这是一段内容确定删除吗？">
-            <el-button slot="reference">删除</el-button>
-          </el-popconfirm>
-        </template>
+        <!-- style="{ background: 'blue' } -->
+        <!-- <template slot-scope="scope">
+          <el-button
+            @click="scope.row.isActive = true"
+            :style="{ background: scope.row.isActive ? 'red' : '' }"
+            size="small"
+            >查看</el-button
+          >
+        </template> -->
+        <template slot-scope="scope"
+          ><el-button @click="upd(scope.row)" size="small" round
+            >更新</el-button
+          ></template
+        >
       </el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="currentPage3"
-      :page-size="100"
+      :page-size="1"
       background
       layout="prev, pager, next, jumper"
-      :total="1000"
+      :total="100"
     >
     </el-pagination>
   </div>
 </template>
 <script>
-// import { queryPoint } from "@/request/network";
+// import { showInfo } from "@/request/api"
+import { queryPoint } from "@/request/api";
+import { updateHelper } from "@/request/api";
 export default {
   methods: {
+    upd(row) {
+      updateHelper({
+        name: row.name,
+        type: row.type,
+        success_num: row.success_num,
+        defeat_num: row.defeat_num,
+        award: row.award,
+      })
+        .then((res) => {
+          console.log(res);
+          alert("更新成功");
+          queryPoint()
+            .then((data) => {
+              console.log(data);
+              this.allcontents = data;
+              this.tableData = [];
+              for (let i = 0; i <= 2; i++)
+                this.tableData.push(this.allcontents[i]);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // row.success_num=row.success_num+1;// eslint-disable-line no-unused-vars
+    },
+    open(color) {
+      this.bgColor = color;
+    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
+      this.tableData = [];
+      this.contentdata = [];
+      let begin_index = (val - 1) * 2;
+      let end_index = begin_index + 2;
+      for (let i = begin_index; i <= end_index; i++)
+        this.tableData.push(this.allcontents[i]);
+      // console.log(this.contentdata);
+      // console.log(this.contentdata);
     },
   },
   data() {
     return {
       tableData: [
         {
-          point: "知识点1",
-          type: "章/节",
-          success: "1",
-          defeat: "1",
-          operate: "asdasd",
+          name: "知识点1",
+          point_type: "章/节",
+          success_num: "1",
+          defeat_num: "1",
+          award: "asdasd",
+          isActive: false,
         },
       ],
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
+      allcontents: [],
+      contentdata: [],
+      currentPage1: 1,
+      currentPage2: 1,
+      currentPage3: 1,
+      currentPage4: 1,
     };
   },
 
+  mounted() {
+    queryPoint({ id: 3 })
+      .then((data) => {
+        console.log(data);
+        this.allcontents = data;
+        this.tableData = [];
+        for (let i = 0; i <= 2; i++) this.tableData.push(this.allcontents[i]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   // mounted() {
-  //   queryPoint({ id: 123 })
+  //   updateHelper({ id: 3 })
   //     .then((data) => {
   //       console.log(data);
-  //       this.tableData = data;
   //     })
   //     .catch((err) => {
   //       console.log(err);
