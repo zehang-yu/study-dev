@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { studentAnswerJudge } from "@/request/api";
 export default {
   name: "judgeItem",
   question: [],
@@ -26,10 +27,42 @@ export default {
   methods: {
     //测试回答是否正确
     test: function () {
-      if (this.radio == "F") {
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      console.log(this.question.judgeQueid);
+
+      console.log(this.radio);
+      if (this.radio != this.question.correct) {
+        studentAnswerJudge({
+          studentId: userInfo.userId,
+          questionId: this.question.judgeQueid,
+          record: 0,
+        })
+          .then((json) => {
+            console.log(json);
+            alert("插入成功");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         return;
       }
-      if (this.radio == this.question.ans) {
+      if (this.radio === this.question.correct) {
+        studentAnswerJudge({
+          studentId: userInfo.userId,
+          questionId: this.question.judgeQueid,
+          record: 1,
+        })
+          .then((json) => {
+            console.log(json);
+            console.log(
+              "ID: " + userInfo.userId,
+              "qID: " + this.question.judgeQueid
+            );
+            alert("插入成功");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         this.$message.success("答对啦");
       }
     },

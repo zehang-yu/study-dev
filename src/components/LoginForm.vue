@@ -44,7 +44,7 @@ export default {
       alert("登录成功");
       localStorage.setItem(
         "userInfo",
-        JSON.stringify({ account: this.account, type: this.radio })
+        JSON.stringify({ account: this.account, type: this.radio, userId: 100 })
       );
       this.$router.push("/");
       //   login({ account: this.account, password: this.password }).then(

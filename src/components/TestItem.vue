@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { studentAnswer } from "@/request/api";
 export default {
   name: "TestItem",
   question: [],
@@ -28,10 +29,42 @@ export default {
   methods: {
     //测试回答是否正确
     test: function () {
-      if (this.radio == "F") {
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      console.log(this.question.choiceQueid);
+
+      console.log(this.radio);
+      if (this.radio != this.question.correct) {
+        studentAnswer({
+          studentId: userInfo.userId,
+          questionId: this.question.choiceQueid,
+          record: 0,
+        })
+          .then((json) => {
+            console.log(json);
+            alert("插入成功");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         return;
       }
-      if (this.radio == this.question.correct) {
+      if (this.radio === this.question.correct) {
+        studentAnswer({
+          studentId: userInfo.userId,
+          questionId: this.question.choiceQueid,
+          record: 1,
+        })
+          .then((json) => {
+            console.log(json);
+            console.log(
+              "ID: " + userInfo.userId,
+              "qID: " + this.question.choiceQueid
+            );
+            alert("插入成功");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         this.$message.success("答对啦");
       }
     },

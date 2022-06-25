@@ -11,6 +11,9 @@ export const deleteQuestion = (queid) =>
 export const studentAnswer = (data) =>
   Network.post("/test/studentAnswer", data);
 
+export const studentAnswerJudge = (data) =>
+  Network.post("/judgeTest/studentAnswerJudge", data);
+
 // function register(data){
 //  return  Network.post("/user/register", data);
 // }
