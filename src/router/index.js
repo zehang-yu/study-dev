@@ -23,7 +23,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/TestView.vue"),
   },
   {
-    path: "/kps/:chapter",
+    path: "/kps",
     name: "KnowledgePoint",
     component: () => import("../views/KnowledgePoint.vue"),
   },
