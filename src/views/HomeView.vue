@@ -10,6 +10,7 @@
     </nav>
     -->
     <template v-if="this.userType === 'student'">
+      <!-- 学生界面 -->
       <div class="left-box">
         <div class="container-left">
           <h4>选项菜单</h4>
@@ -26,12 +27,17 @@
             <el-menu-item index="2" @click="toLink('/kps')">
               <span slot="title">知识点</span>
             </el-menu-item>
+
+            <el-menu-item index="3" @click="toLink('/teachermanage')">
+              <span slot="title">知识点助教管理</span>
+            </el-menu-item>
           </el-menu>
         </div>
       </div>
     </template>
 
     <div class="left-box" v-else>
+      <!-- 老师界面 -->
       <div class="container-left">
         <h4>选项菜单</h4>
         <el-menu
@@ -40,10 +46,10 @@
           @open="handleOpen"
           @close="handleClose"
         >
-          <el-menu-item index="3" @click="toLink('/mamagekptest')">
+          <el-menu-item index="4" @click="toLink('/mamagekptest')">
             <span slot="title">KnowledgePointTestManage </span>
           </el-menu-item>
-          <el-menu-item index="4" @click="toLink('/award')">
+          <el-menu-item index="5" @click="toLink('/award')">
             <span slot="title">Pointaward</span>
           </el-menu-item>
         </el-menu>
