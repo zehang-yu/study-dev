@@ -46,12 +46,8 @@ export default {
     toLink(url, param) {
       this.$router.push(url, param);
     },
-    handleOpen() {
-
-    },
-    handleClose() {
-      
-    }
+    handleOpen() {},
+    handleClose() {},
   },
 };
 </script>
