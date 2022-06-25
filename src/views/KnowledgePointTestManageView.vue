@@ -53,5 +53,6 @@ h2 {
   width: 700px;
   margin: 0 auto;
   padding-bottom: 20px;
+  margin-top: 20px;
 }
 </style>
