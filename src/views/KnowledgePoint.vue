@@ -1,7 +1,14 @@
 <template>
   <div>
     <div v-for="(chapter, idx) in chapters" :key="idx" >
-      <Tree :data="chapter" @on-node-click="clickTreeNode" horizontal collapsable @on-expand="onExpand" @on-node-mouseover="mouseOver"></Tree>
+      <Tree :data="chapter"
+        @on-node-click="clickTreeNode"
+        horizontal collapsable 
+        @on-expand="onExpand" 
+        @on-node-mouseover="mouseOver"
+        @on-node-mouseout="mouseOut"
+        :label-class-name="nodeClassName"
+      ></Tree>
       <br/>
     </div>
   </div>
@@ -17,6 +24,7 @@ export default {
   data() {
     return {
       chapters: [],
+      nodeClassName: 'tree-node'
     };
   },
   created() {
@@ -45,11 +53,28 @@ export default {
     },
     mouseOver(e, data) {
       if (!data.children) {
-        // 鼠标悬浮到叶子节点
+        // 鼠标悬浮到叶子节点, 变成pointer
+        this.nodeClassName = 'tree-node-leaf';
+      }
+    },
+    mouseOut(e, data) {
+      if (!data.children) {
+        // 鼠标离开叶子节点
+        this.nodeClassName = 'tree-node';
       }
     }
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.tree-node {
+  background-color: #40b5ff;
+}
+.tree-node-leaf {
+  background-color: #40b5ff;
+}
+.tree-node-leaf:hover {
+  cursor: pointer;
+}
+</style>
