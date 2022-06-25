@@ -1,4 +1,4 @@
-<template>
+<template >
   <div>
     <h2>{{ question.testName }}</h2>
     <el-radio-group v-model="radio">
@@ -14,36 +14,18 @@
 </template>
 
 <script>
-import api from "@/request/network";
-
 export default {
   name: "TestItem",
-  props: ["name"],
+  question: [],
+  props: ["name", "question"],
   data() {
     return {
       radio: "F",
-      question: {},
-      questionNum: 10,
+      id: 0,
     };
   },
-  created() {
-    //console.log("hehe sb");
-    for (var i = 1; i <= this.question; i++) {
-      console.log(i);
-    }
-    api
-      .get("/test/getQuestion/1")
-      .then((data) => {
-        console.log(data);
-        this.question = data.data.testInfo;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
+
   methods: {
-    //获取问题数量
-    getQuestionNum: function () {},
     //测试回答是否正确
     test: function () {
       if (this.radio == "F") {
