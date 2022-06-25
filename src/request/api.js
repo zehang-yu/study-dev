@@ -8,6 +8,8 @@ export const insertJudgeQuestion = (data) =>
 export const getAllTest = (data) => Network.get("/alltest/get", data);
 export const deleteQuestion = (queid) =>
   Network.delete(`/alltest/delete/${queid}`);
+export const studentAnswer = (data) =>
+  Network.post("/test/studentAnswer", data);
 
 // function register(data){
 //  return  Network.post("/user/register", data);
