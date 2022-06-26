@@ -1,7 +1,6 @@
 <template>
   <div class="login">
-    <h1>Login</h1>
-    <h4>请使用最新的数据库DDL。目前这个登录还没有连数据库，随便输入就行</h4>
+    <h2>登录</h2>
     <LoginForm></LoginForm>
   </div>
 </template>

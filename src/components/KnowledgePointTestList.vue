@@ -111,7 +111,7 @@ export default {
       console.log(queid + " " + index);
       deleteQuestion(queid).then((json) => {
         console.log(json);
-        alert("删除成功");
+        this.$message.success("删除成功");
       });
     },
   },

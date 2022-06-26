@@ -13,7 +13,7 @@
       <!-- 学生界面 -->
       <div class="left-box">
         <div class="container-left">
-          <h4>选项菜单</h4>
+          <h4>{{ this.userName }}同学</h4>
           <el-menu
             default-active="1"
             class="el-menu-vertical-demo"
@@ -39,7 +39,7 @@
     <div class="left-box" v-else>
       <!-- 老师界面 -->
       <div class="container-left">
-        <h4>选项菜单</h4>
+        <h4>{{ userName }}老师</h4>
         <el-menu
           default-active="3"
           class="el-menu-vertical-demo"
@@ -64,6 +64,7 @@
 <script>
 export default {
   name: "HomeView",
+  userName: "",
   data() {
     return {
       userType: "",
@@ -72,7 +73,7 @@ export default {
 
   methods: {
     toLink(url, param) {
-      this.$router.push(url, param);
+      this.$router.replace(url, param);
     },
     handleOpen() {},
     handleClose() {},
@@ -80,13 +81,13 @@ export default {
   mounted() {
     // localstorage.get()
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(userInfo);
-    if (!userInfo || !userInfo.account) {
-      this.$router.push({ path: "/login" });
+    if (!userInfo) {
+      this.$router.replace({ path: "/login" });
     } else {
       //登录成功
       console.log(userInfo.type);
       this.userType = userInfo.type;
+      this.userName = userInfo.name;
       if (this.userType === "student") {
         //如果登陆的是学生
         this.$router.push({ path: "/test" });

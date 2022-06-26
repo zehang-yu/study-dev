@@ -1,4 +1,4 @@
-<template >
+<template>
   <div>
     <h2>{{ question.title }}</h2>
     <el-radio-group v-model="radio">
@@ -70,5 +70,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -1,16 +1,20 @@
 <template>
   <form class="login-form">
     <div class="login-form-item">
-      <label class="form-item-label">USERNAME</label>
-      <input class="form-item-input" v-model="account" placeholder="USERNAME" />
+      <label class="form-item-label">账号</label>
+      <input
+        class="form-item-input"
+        v-model="account"
+        placeholder="请输入账号"
+      />
     </div>
     <div class="login-form-item">
-      <label class="form-item-label">PASSWORD</label>
+      <label class="form-item-label">密码</label>
       <input
         class="form-item-input"
         v-model="password"
         type="password"
-        placeholder="PASSWORD"
+        placeholder="请输入密码"
       />
     </div>
     <div class="login-form-item">
@@ -23,7 +27,7 @@
   </form>
 </template>
 <script>
-//import { login } from "@/request/api";
+import { login } from "@/request/api";
 export default {
   name: "LoginForm",
 
@@ -41,23 +45,30 @@ export default {
         alert("用户名或密码为空");
         return;
       }
-      alert("登录成功");
-      localStorage.setItem(
-        "userInfo",
-        JSON.stringify({ account: this.account, type: this.radio, userId: 100 })
-      );
-      this.$router.push("/");
-      //   login({ account: this.account, password: this.password }).then(
-      //     (result) => {
-      //       console.log(result);
-      //       alert("登录成功");
-      //       localStorage.setItem(
-      //         "userInfo",
-      //         JSON.stringify({ account: this.account, type: this.radio })
-      //       );
-      //       this.$router.push("/");
-      //     }
-      //   );
+      if (this.radio === "") {
+        alert("请选择登录的用户类型");
+        return;
+      }
+      login({ account: this.account, password: this.password }, this.radio)
+        .then((result) => {
+          console.log(result);
+          if (result.success == false) {
+            alert("用户名或密码错误");
+          } else {
+            localStorage.setItem(
+              "userInfo",
+              JSON.stringify({
+                type: this.radio,
+                userId: result.data.User.id,
+                name: result.data.User.name,
+              })
+            );
+            this.$router.push("/");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
