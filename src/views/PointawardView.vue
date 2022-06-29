@@ -1,27 +1,39 @@
 <template>
   <div class="block">
-    <span class="demonstration">直接前往</span>
-    <el-table :data="tableData" style="width: 100%" align="center">
-      <el-table-column prop="name" label="知识点" width="180" align="center">
+    <span class="demonstration"></span>
+    <el-table
+      :data="tableData"
+      style="width: 120%"
+      align="center"
+      size="medium"
+    >
+      <el-table-column
+        prop="kp_id"
+        label="知识点"
+        height="200"
+        width="200"
+        align="center"
+      >
       </el-table-column>
       <el-table-column
-        prop="point_type"
+        prop="que_id"
         label="分类"
-        width="180"
+        height="200"
+        width="200"
         align="center"
       >
       </el-table-column>
       <el-table-column
-        prop="success_num"
+        prop="success_time"
         label="助教成功统计"
-        width="180"
+        width="200"
         align="center"
       >
       </el-table-column>
       <el-table-column
-        prop="defeat_num"
+        prop="fail_time"
         label="助教失败统计"
-        width="180"
+        width="200"
         align="center"
       >
       </el-table-column>
@@ -35,11 +47,17 @@
             >查看</el-button
           >
         </template> -->
-        <template slot-scope="scope"
-          ><el-button @click="upd(scope.row)" size="small" round
+        <!-- <template slot-scope="scope" 
+          ><el-button @click="upd(scope.row)" type="text" round
             >更新</el-button
           ></template
-        >
+        > -->
+        <template slot-scope="scope">
+          <el-badge is-dot="false" hidden="false" class="item">
+            <el-button @click="upd(scope.row)" type="text">获取奖励</el-button>
+          </el-badge>
+        </template>
+        .item { margin-top: 10px; margin-right: 40px; }
       </el-table-column>
     </el-table>
     <el-pagination
@@ -49,7 +67,7 @@
       :page-size="1"
       background
       layout="prev, pager, next, jumper"
-      :total="100"
+      :total="10"
     >
     </el-pagination>
   </div>
@@ -62,15 +80,16 @@ export default {
   methods: {
     upd(row) {
       updateHelper({
-        name: row.name,
-        type: row.type,
-        success_num: row.success_num,
-        defeat_num: row.defeat_num,
-        award: row.award,
+        stu_id: row.kp_id,
+        que_id: row.que_id,
+        success_time: row.success_time,
+        fail_time: row.fail_time,
       })
         .then((res) => {
           console.log(res);
           alert("更新成功");
+          console.log(row);
+          // row.isdotjudge="true";
           queryPoint()
             .then((data) => {
               console.log(data);
@@ -84,6 +103,7 @@ export default {
             });
         })
         .catch((err) => {
+          alert("更新失败");
           console.log(err);
         });
       // row.success_num=row.success_num+1;// eslint-disable-line no-unused-vars
@@ -110,12 +130,13 @@ export default {
     return {
       tableData: [
         {
-          name: "知识点1",
-          point_type: "章/节",
-          success_num: "1",
-          defeat_num: "1",
-          award: "asdasd",
+          kp_id: "知识点1",
+          que_id: "章/节",
+          success_time: "1",
+          fail_time: "1",
+          // award: "asdasd",
           isActive: false,
+          isdotjudge:true,
         },
       ],
       allcontents: [],
@@ -139,14 +160,5 @@ export default {
         console.log(err);
       });
   },
-  // mounted() {
-  //   updateHelper({ id: 3 })
-  //     .then((data) => {
-  //       console.log(data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // },
 };
 </script>
