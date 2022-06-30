@@ -31,7 +31,7 @@ export default {
     test: function () {
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
       console.log(this.question.choiceQueid);
-
+      
       console.log(this.radio);
       if (this.radio != this.question.correct) {
         this.$message.error("答错啦");

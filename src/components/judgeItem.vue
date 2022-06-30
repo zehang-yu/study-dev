@@ -2,8 +2,8 @@
   <div>
     <h2>{{ question.title }}</h2>
     <el-radio-group v-model="radio">
-      <el-radio label="1">是</el-radio>
-      <el-radio label="0">否</el-radio>
+      <el-radio label="对">是</el-radio>
+      <el-radio label="错">否</el-radio>
     </el-radio-group>
     <br />
     <br />
@@ -31,7 +31,7 @@ export default {
       console.log(this.question.judgeQueid);
 
       console.log(this.radio);
-      if (this.radio != this.question.correct) {
+      if (this.radio != this.question.ans) {
         studentAnswerJudge({
           studentId: userInfo.userId,
           questionId: this.question.judgeQueid,
@@ -46,7 +46,7 @@ export default {
         this.$message.error("答错啦");
         return;
       }
-      if (this.radio === this.question.correct) {
+      if (this.radio === this.question.ans) {
         studentAnswerJudge({
           studentId: userInfo.userId,
           questionId: this.question.judgeQueid,
