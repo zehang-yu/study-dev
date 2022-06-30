@@ -45,7 +45,7 @@
           ></template
         > -->
         <template slot-scope="scope">
-          <el-badge is-dot hidden="false" class="item">
+          <el-badge is-dot class="item">
             <el-button @click="upd(scope.row)" type="text">获取奖励</el-button>
           </el-badge>
         </template>
@@ -80,7 +80,6 @@ export default {
         .then((res) => {
           console.log(res);
           // alert("更新成功");
-          this.tableData.jud = false;
           this.$message.success("更新成功"); // eslint-disable-next-line
           console.log(`每页1000条`);
           console.log(row.fail_time);
@@ -114,8 +113,8 @@ export default {
       this.contentdata = [];
       let begin_index = (val - 1) * 2;
       let end_index =
-        begin_index + 2 > this.allcontents.length() - 1
-          ? this.allcontents.length() - 1
+        begin_index + 2 > this.allcontents.length - 1
+          ? this.allcontents.length - 1
           : begin_index + 2;
       for (let i = begin_index; i <= end_index; i++)
         this.tableData.push(this.allcontents[i]);
@@ -132,7 +131,6 @@ export default {
           success_time: "1",
           fail_time: "1",
           isActive: false,
-          jud: false,
         },
       ],
       allcontents: [],
@@ -149,7 +147,7 @@ export default {
       .then((data) => {
         this.allcontents = data;
         this.tableData = [];
-        for (let i = 0; i <= 1; i++) this.tableData.push(this.allcontents[i]);
+        // for (let i = 0; i <= 1; i++) this.tableData.push(this.allcontents[i]);
       })
       .catch((err) => {
         console.log(err);
