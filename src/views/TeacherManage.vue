@@ -1,6 +1,5 @@
 <template>
   <div class="block">
-    <span class="demonstration">直接前往</span>
     <el-table :data="tableData" style="width: 100%" align="center">
       <el-table-column prop="stu_name" label="姓名" width="180" align="center">
       </el-table-column>
