@@ -1,6 +1,6 @@
 import Network from "./network";
 //登录
-export const login = (data) => Network.post("/student/login", data);
+export const login = (user, type) => Network.post(`/user/login/${type}`, user);
 
 //插入选择题
 export const insertChoiceQuestion = (data) =>

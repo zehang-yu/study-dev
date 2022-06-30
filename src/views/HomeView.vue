@@ -13,7 +13,7 @@
       <!-- 学生界面 -->
       <div class="left-box">
         <div class="container-left">
-          <h4>{{ this.userName }}同学</h4>
+          <h4>{{ userName }}同学</h4>
           <el-menu
             default-active="1"
             class="el-menu-vertical-demo"
@@ -64,9 +64,10 @@
 <script>
 export default {
   name: "HomeView",
-  userName: "",
+  
   data() {
     return {
+      userName: "",
       userType: "",
     };
   },
