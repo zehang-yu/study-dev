@@ -27,7 +27,7 @@
         </template>
       </el-table-column> -->
       <el-table-column label="选择助教" align="center">
-        <template slot-scope="options">
+        <template >
           <el-select v-model="value" placeholder="请选择">
             <el-option
               v-for="item in options"

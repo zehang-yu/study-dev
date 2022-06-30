@@ -53,11 +53,11 @@
           ></template
         > -->
         <template slot-scope="scope">
-          <el-badge is-dot="false" hidden="false" class="item">
+          <el-badge is-dot class="item">
             <el-button @click="upd(scope.row)" type="text">获取奖励</el-button>
           </el-badge>
         </template>
-        .item { margin-top: 10px; margin-right: 40px; }
+        <!-- .item { margin-top: 10px; margin-right: 40px; } -->
       </el-table-column>
     </el-table>
     <el-pagination
@@ -83,16 +83,17 @@ export default {
         stu_id: row.kp_id,
         que_id: row.que_id,
         success_time: row.success_time,
-        fail_time: row.fail_time,
+        fail_time: row.fail_time-1,
       })
         .then((res) => {
           console.log(res);
           alert("更新成功");
-          console.log(row);
+          // this.$message.error(更新成功);// eslint-disable-next-line
+          console.log(`每页1000条`);
+          console.log(row.fail_time);
           // row.isdotjudge="true";
           queryPoint()
             .then((data) => {
-              console.log(data);
               this.allcontents = data;
               this.tableData = [];
               for (let i = 0; i <= 2; i++)
@@ -134,9 +135,8 @@ export default {
           que_id: "章/节",
           success_time: "1",
           fail_time: "1",
-          // award: "asdasd",
           isActive: false,
-          isdotjudge:true,
+          isdotjudge: true,
         },
       ],
       allcontents: [],
@@ -149,12 +149,13 @@ export default {
   },
 
   mounted() {
-    queryPoint({ id: 3 })
+    queryPoint()
       .then((data) => {
-        console.log(data);
         this.allcontents = data;
         this.tableData = [];
-        for (let i = 0; i <= 2; i++) this.tableData.push(this.allcontents[i]);
+        let l=this.allcontents.length();
+        console.log(l);
+        for (let i = 0; i <l; i++) this.tableData.push(this.allcontents[i]);
       })
       .catch((err) => {
         console.log(err);

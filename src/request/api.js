@@ -21,9 +21,9 @@ export const studentAnswer = (data) =>
 export const studentAnswerJudge = (data) =>
   Network.post("/judgeTest/studentAnswerJudge", data);
 
-let acc = JSON.parse(localStorage.getItem("userInfo")).account;
+let uid = JSON.parse(localStorage.getItem("userInfo")).userId;
 export const queryPoint = (data) =>
-  Network.get("/allInfo/getInfo/" + acc, data);
+  Network.get("/allInfo/getInfo/" + uid, data);
 export const updateHelper = (data) => Network.put("/allInfo/getInfo", data);
 
 //let id=JSON.parse(localStorage.getItem("userInfo")).account;
