@@ -34,6 +34,7 @@ export default {
 
       console.log(this.radio);
       if (this.radio != this.question.correct) {
+        this.$message.error("答错啦");
         studentAnswer({
           studentId: userInfo.userId,
           questionId: this.question.choiceQueid,
@@ -41,7 +42,6 @@ export default {
         })
           .then((json) => {
             console.log(json);
-            alert("插入成功");
           })
           .catch((err) => {
             console.log(err);
@@ -60,7 +60,6 @@ export default {
               "ID: " + userInfo.userId,
               "qID: " + this.question.choiceQueid
             );
-            alert("插入成功");
           })
           .catch((err) => {
             console.log(err);
