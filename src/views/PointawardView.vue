@@ -39,21 +39,13 @@
       </el-table-column>
       <el-table-column label="操作" width="120">
         <!-- style="{ background: 'blue' } -->
-        <!-- <template slot-scope="scope">
-          <el-button
-            @click="scope.row.isActive = true"
-            :style="{ background: scope.row.isActive ? 'red' : '' }"
-            size="small"
-            >查看</el-button
-          >
-        </template> -->
         <!-- <template slot-scope="scope" 
           ><el-button @click="upd(scope.row)" type="text" round
             >更新</el-button
           ></template
         > -->
         <template slot-scope="scope">
-          <el-badge is-dot class="item">
+          <el-badge is-dot hidden="false" class="item">
             <el-button @click="upd(scope.row)" type="text">获取奖励</el-button>
           </el-badge>
         </template>
@@ -83,12 +75,13 @@ export default {
         stu_id: row.kp_id,
         que_id: row.que_id,
         success_time: row.success_time,
-        fail_time: row.fail_time-1,
+        fail_time: row.fail_time - 1,
       })
         .then((res) => {
           console.log(res);
-          alert("更新成功");
-          // this.$message.error(更新成功);// eslint-disable-next-line
+          // alert("更新成功");
+          this.tableData.jud = false;
+          this.$message.success("更新成功"); // eslint-disable-next-line
           console.log(`每页1000条`);
           console.log(row.fail_time);
           // row.isdotjudge="true";
@@ -120,7 +113,10 @@ export default {
       this.tableData = [];
       this.contentdata = [];
       let begin_index = (val - 1) * 2;
-      let end_index = begin_index + 2;
+      let end_index =
+        begin_index + 2 > this.allcontents.length() - 1
+          ? this.allcontents.length() - 1
+          : begin_index + 2;
       for (let i = begin_index; i <= end_index; i++)
         this.tableData.push(this.allcontents[i]);
       // console.log(this.contentdata);
@@ -136,7 +132,7 @@ export default {
           success_time: "1",
           fail_time: "1",
           isActive: false,
-          isdotjudge: true,
+          jud: false,
         },
       ],
       allcontents: [],
@@ -153,9 +149,7 @@ export default {
       .then((data) => {
         this.allcontents = data;
         this.tableData = [];
-        let l=this.allcontents.length();
-        console.log(l);
-        for (let i = 0; i <l; i++) this.tableData.push(this.allcontents[i]);
+        for (let i = 0; i <= 1; i++) this.tableData.push(this.allcontents[i]);
       })
       .catch((err) => {
         console.log(err);
