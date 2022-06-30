@@ -34,6 +34,7 @@ export default {
 
       console.log(this.radio);
       if (this.radio != this.question.correct) {
+        this.$message.error("答错啦");
         studentAnswer({
           studentId: userInfo.userId,
           questionId: this.question.choiceQueid,
