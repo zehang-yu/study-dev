@@ -18,10 +18,13 @@
       />
     </div>
     <div class="login-form-item">
-      <el-radio-group v-model="radio">
-        <el-radio label="student">学生</el-radio>
-        <el-radio label="teacher">老师</el-radio>
-      </el-radio-group>
+      <div class="type-radio-group">
+        <el-radio-group v-model="radio">
+          <el-radio label="student">学生</el-radio>
+          <el-radio label="teacher">老师</el-radio>
+        </el-radio-group>
+      </div>
+
       <div class="login-form-button" @click="handleLogin()">登录</div>
     </div>
   </form>
@@ -114,5 +117,11 @@ export default {
       }
     }
   }
+}
+
+.type-radio-group {
+  text-align: center;
+  width: 100%;
+  padding: 0 16px;
 }
 </style>

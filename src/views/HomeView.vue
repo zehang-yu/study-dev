@@ -21,7 +21,7 @@
             @close="handleClose"
           >
             <el-menu-item index="1" @click="toLink('/test')">
-              <span slot="title">Test</span>
+              <span slot="title">测试题</span>
             </el-menu-item>
 
             <el-menu-item index="2" @click="toLink('/kps')">
@@ -41,16 +41,16 @@
       <div class="container-left">
         <h4>{{ userName }}老师</h4>
         <el-menu
-          default-active="3"
+          default-active="4"
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose"
         >
           <el-menu-item index="4" @click="toLink('/mamagekptest')">
-            <span slot="title">KnowledgePointTestManage </span>
+            <span slot="title">试题管理 </span>
           </el-menu-item>
           <el-menu-item index="5" @click="toLink('/award')">
-            <span slot="title">Pointaward</span>
+            <span slot="title">助教信息统计</span>
           </el-menu-item>
         </el-menu>
       </div>
@@ -81,6 +81,7 @@ export default {
   mounted() {
     // localstorage.get()
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
     if (!userInfo) {
       this.$router.replace({ path: "/login" });
     } else {

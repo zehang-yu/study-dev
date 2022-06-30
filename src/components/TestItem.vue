@@ -1,4 +1,4 @@
-<template >
+<template>
   <div>
     <h2>{{ question.testName }}</h2>
     <el-radio-group v-model="radio">
@@ -41,7 +41,6 @@ export default {
         })
           .then((json) => {
             console.log(json);
-            alert("插入成功");
           })
           .catch((err) => {
             console.log(err);
@@ -60,7 +59,6 @@ export default {
               "ID: " + userInfo.userId,
               "qID: " + this.question.choiceQueid
             );
-            alert("插入成功");
           })
           .catch((err) => {
             console.log(err);
@@ -72,5 +70,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

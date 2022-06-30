@@ -83,7 +83,10 @@ export default {
       let tempAllPageArr = this.allContents;
       this.contentsInOnePage = []; //清空表格
       this.allContents = [];
-      if (tempOnePageArr.length == 1) {
+      if (tempOnePageArr.length == 1 && this.currentPage == 1) {
+        //那一页只有一个数据并且是第一页
+        //Do Nothing
+      } else if (tempOnePageArr.length == 1) {
         //那一页只有一个数据
         this.currentPage -= 1;
         for (
@@ -91,13 +94,22 @@ export default {
           i < tempAllPageArr.length - 1;
           ++i
         ) {
-          console.log(tempAllPageArr[i].title);
           this.contentsInOnePage.push(tempAllPageArr[i]);
         }
       } else {
-        for (let i = 0; i < tempOnePageArr.length; ++i) {
-          if (i != index) {
-            this.contentsInOnePage.push(tempOnePageArr[i]);
+        let cnt = 0; //计已经加了几条数据
+        for (
+          let i = (this.currentPage - 1) * this.pageSize;
+          i < tempAllPageArr.length;
+          ++i
+        ) {
+          if (tempAllPageArr[i].queid != queid) {
+            this.contentsInOnePage.push(tempAllPageArr[i]);
+            ++cnt;
+          }
+          if (cnt == this.pageSize) {
+            //一页的条数够了就停下
+            break;
           }
         }
       }
