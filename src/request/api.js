@@ -15,6 +15,10 @@ let acc = JSON.parse(localStorage.getItem("userInfo")).account;
 export const queryPoint = (data) => Network.get("/allInfo/getInfo/"+acc, data);
 export const updateHelper = (data) => Network.put("/allInfo/getInfo", data);
 
+//let id=JSON.parse(localStorage.getItem("userInfo")).account;  
+//传输参数更改
+export const studentCuoTiList = (data) =>
+  Network.get("teachermanage/getStudentCuoTi/"+"1", data);
 // function register(data){
 //  return  Network.post("/user/register", data);
 // }
