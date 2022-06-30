@@ -32,7 +32,6 @@ export default {
 
       console.log(this.radio);
       if (this.radio != this.question.correct) {
-        this.$message.error("答错啦");
         studentAnswerJudge({
           studentId: userInfo.userId,
           questionId: this.question.judgeQueid,
@@ -44,6 +43,7 @@ export default {
           .catch((err) => {
             console.log(err);
           });
+        this.$message.error("答错啦");
         return;
       }
       if (this.radio === this.question.correct) {

@@ -18,6 +18,8 @@ export const deleteQuestion = (queid) =>
   Network.delete(`/alltest/delete/${queid}`);
 export const studentAnswer = (data) =>
   Network.post("/test/studentAnswer", data);
+export const studentAnswerJudge = (data) =>
+  Network.post("/judgeTest/studentAnswerJudge", data);
 
 let acc = JSON.parse(localStorage.getItem("userInfo")).account;
 export const queryPoint = (data) =>
